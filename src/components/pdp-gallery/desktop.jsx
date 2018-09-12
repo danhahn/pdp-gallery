@@ -65,6 +65,7 @@ const UpButton = styled(CustomButtonPrev)`
   transform: translate(0);
   width: 100%;
   display: block;
+  margin-top: 50px;
 `;
 
 const DownButton = styled(CustomButtonNext)`
@@ -73,6 +74,7 @@ const DownButton = styled(CustomButtonNext)`
   transform: translate(0);
   width: 100%;
   display: block;
+  margin-top: 25px;
 `;
 
 const Photo = styled.img`

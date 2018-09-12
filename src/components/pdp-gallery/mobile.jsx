@@ -6,23 +6,6 @@ const PdpGalleryWrapper = styled.div`
   border: 1px solid black;
 `;
 
-const ThumbnailsWrapper = styled.div`
-  overflow: hidden;
-`;
-
-const Thumbnails = styled.ul`
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: grid;
-  grid-gap: 10px;
-  margin-top: 10px;
-  grid-template-columns: 44px;
-  grid-auto-flow: column;
-  grid-auto-columns: 44px;
-  transition: all 300ms;
-`;
-
 class PdpMobile extends Component {
   static defaultProps = {
     photos: []
@@ -44,33 +27,6 @@ class PdpMobile extends Component {
   componentDidMount() {
     this.setState({ swiper: this.swiper });
     this.swiper.el.addEventListener("touchend", this.updateCurrentIndex);
-    let last = 0;
-    let firstTouch = null;
-    // this.thumbnailWrapper.addEventListener("touchmove", (event) => {
-    //   const currentPost = Math.round(event.touches[0].clientX);
-    //   if (!firstTouch) {
-    //     firstTouch = currentPost;
-    //   }
-    //   console.log(currentPost - firstTouch);
-    //   this.thumbnails.style.transform = `translateX(${currentPost - firstTouch}px)`;
-    //   last = currentPost;
-    // }, false)
-    // // console.log(this.thumbnails)
-
-    // this.thumbnails.addEventListener("touchend", (event) => {
-    //   firstTouch = null;
-    //   console.log(this.thumbnails.getBoundingClientRect());
-    //   // this.thumbnails.style.transform = `translateX(0)`;
-    // });
-
-    // const thumbnailWidth = this.thumbnails.querySelector('img').getBoundingClientRect().width;
-    // const thumbnailPositions = [...this.thumbnails.querySelectorAll("img")].map(
-    //   thumb => {
-    //     const { right } = thumb.getBoundingClientRect();
-    //     return right;
-    //   }
-    // );
-    // this.setState({ thumbnailPositions, thumbnailWidth });
   }
 
   updateCurrentIndex() {
