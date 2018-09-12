@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import PdpMobile from './mobile';
-import PdpDesktop from './desktop';
+import PdpMobile from "./mobile";
+import PdpDesktop from "./desktop";
 
 const PdpGalleryWrapper = styled.div`
   margin-top: 500px;
@@ -25,13 +25,13 @@ const Thumbnail = styled(Img)`
 export default class PdpGallery extends Component {
   state = {
     screenWidth: null
-  }
+  };
 
   handleResize = () => {
-    this.setState({screenWidth: window.innerWidth})
-  }
+    this.setState({ screenWidth: window.innerWidth });
+  };
 
-  isMobile = () => this.state.screenWidth<= 510;
+  isMobile = () => this.state.screenWidth <= 510;
 
   componentDidMount() {
     this.handleResize();
@@ -43,23 +43,34 @@ export default class PdpGallery extends Component {
   }
 
   render() {
-    return <PdpGalleryWrapper>
+    return (
+      <PdpGalleryWrapper>
         {!this.isMobile() ? (
           <PdpDesktop photos={this.props.photos} />
         ) : (
-          <PdpMobile photos={this.props.photos}
-            render={() => (this.props.photos.map(photo => (
-              <div key={photo.id}>
-                <Img src={photo.url} alt="" />
-              </div>
-            )))}
-            renderThumbnails={(updateCurrentSlide, activeIndex) => (this.props.photos.map((photo, index) => (
-              <div key={photo.id} onClick={() => updateCurrentSlide(index)}>
-                <Thumbnail src={photo.url} active={index === activeIndex} alt="" />
-              </div>
-            )))}
+          <PdpMobile
+            photos={this.props.photos}
+            render={() =>
+              this.props.photos.map(photo => (
+                <div key={photo.id}>
+                  <Img src={photo.url} alt="" />
+                </div>
+              ))
+            }
+            renderThumbnails={(updateCurrentSlide, activeIndex) =>
+              this.props.photos.map((photo, index) => (
+                <div key={photo.id} onClick={() => updateCurrentSlide(index)}>
+                  <Thumbnail
+                    src={photo.url}
+                    active={index === activeIndex}
+                    alt=""
+                  />
+                </div>
+              ))
+            }
           />
         )}
-      </PdpGalleryWrapper>;
+      </PdpGalleryWrapper>
+    );
   }
 }

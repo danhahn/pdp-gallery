@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 
 const photos = [
   {
@@ -39,8 +39,8 @@ const photos = [
   {
     url: "https://picsum.photos/550/737?image=900",
     id: 900
-  },
+  }
 ];
 
-ReactDOM.render(<App photos={photos} />, document.getElementById('root'));
+ReactDOM.render(<App photos={photos} />, document.getElementById("root"));
 registerServiceWorker();
