@@ -58,38 +58,32 @@ export const Inner = styled.div`
 export const CustomButtonPrev = styled.button`
   outline: none;
   border: none;
-  width: 29px;
-  height: 65px;
+  width: 65px;
+  height: 29px;
   left: 0;
   top: 227px;
   margin-top: 0;
   transform: translateY(-50%);
-  background-size: 11px 35px;
+  background-size: 35px 11px;
   background-color: rgba(255, 255, 255, 0.7);
-  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 11 35' xmlns='http://www.w3.org/2000/svg' width='11' height='35'%3E%3Cpolygon class='cls-3' points='11 35 1.14 17.5 11 0 9.86 0 0 17.5 9.86 35' fill='%23707070'/%3E%3C/svg%3E%0A");
+  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 35 11' xmlns='http://www.w3.org/2000/svg' width='35' height='11'%3E%3Cpolygon points='0 11 17.5 1.14 35 11 35 9.86 17.5 0 0 9.86' fill='%23707070'/%3E%3C/svg%3E");
   transition: background-color 750ms;
-  /* &.swiper-button-disabled {
-    opacity: 0;
-  } */
   @media screen and (max-width: 510px) {
     display: none;
   }
   &:hover,
   &:focus {
     background-color: rgba(255, 255, 255, 1);
-    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 11 35' xmlns='http://www.w3.org/2000/svg' width='11' height='35'%3E%3Cpolygon class='cls-3' points='11 35 1.14 17.5 11 0 9.86 0 0 17.5 9.86 35' fill='%23000000'/%3E%3C/svg%3E%0A");
+    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 35 11' xmlns='http://www.w3.org/2000/svg' width='35' height='11'%3E%3Cpolygon points='0 11 17.5 1.14 35 11 35 9.86 17.5 0 0 9.86' fill='%23000000'/%3E%3C/svg%3E");
   }
-  /* &[disabled] {
-    display: none;
-  } */
 `;
 
 export const CustomButtonNext = styled(CustomButtonPrev)`
   left: inherit;
   right: 0;
-  background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 11 35' width='11' height='35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon class='cls-3' fill='%23707070' points='0 0 9.86 17.5 0 35 1.14 35 11 17.5 1.14 0'/%3E%3C/svg%3E%0A");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 35 11' width='35' height='11'%3E%3Cpolygon points='35 0 17.5 9.9 0 0 0 1.1 17.5 11 35 1.1 35 0' style='fill:%23707070'/%3E%3C/svg%3E%0A");
   &:hover,
   &:focus {
-    background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg viewBox='0 0 11 35' width='11' height='35' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon class='cls-3' fill='%23000000' points='0 0 9.86 17.5 0 35 1.14 35 11 17.5 1.14 0'/%3E%3C/svg%3E%0A");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 35 11' width='35' height='11'%3E%3Cpolygon points='35 0 17.5 9.9 0 0 0 1.1 17.5 11 35 1.1 35 0' style='fill:%23000000'/%3E%3C/svg%3E%0A");
   }
 `;
