@@ -24,6 +24,22 @@ const photos = [
     url: "https://picsum.photos/550/737?image=500",
     id: 500
   },
+  {
+    url: "https://picsum.photos/550/737?image=600",
+    id: 600
+  },
+  {
+    url: "https://picsum.photos/550/737?image=700",
+    id: 700
+  },
+  {
+    url: "https://picsum.photos/550/737?image=800",
+    id: 800
+  },
+  {
+    url: "https://picsum.photos/550/737?image=900",
+    id: 900
+  },
 ];
 
 ReactDOM.render(<App photos={photos} />, document.getElementById('root'));
