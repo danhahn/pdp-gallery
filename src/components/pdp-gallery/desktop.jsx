@@ -99,21 +99,18 @@ export default class PdpDesktop extends Component {
     done: false
   };
   componentDidMount() {
-    console.log(new Date());
     this.checkIfImagesLoaded();
     window.addEventListener("scroll", this.checkOffSet);
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.photos.length !== this.props.photos.length) {
-      this.updateDisplayState();
+      this.checkIfImagesLoaded();
     }
     if (
       this.state.loadedImages === this.photos.querySelectorAll("img").length &&
       !this.state.done
     ) {
-      console.log("💥");
-      console.log(new Date());
       this.setState({ done: true });
       this.updateDisplayState();
     }
@@ -220,17 +217,17 @@ export default class PdpDesktop extends Component {
           <section ref={el => (this.photos = el)}>
             {this.props.render()}
           </section>
-          <State>
-            <li>selected: {this.state.selected}</li>
-            <li>totalItems: {this.state.totalItems}</li>
-            <li>navBottom: {this.state.navBottom}</li>
-            <li>
-              imageListPositions: {this.state.imageListPositions.join(", ")}
-            </li>
-            <li>Loaded Images: {this.state.loadedImages}</li>
-            <li>done: {this.state.done ? "true" : "false"}</li>
-          </State>
         </Desktop>
+        <State>
+          <li>selected: {this.state.selected}</li>
+          <li>totalItems: {this.state.totalItems}</li>
+          <li>navBottom: {this.state.navBottom}</li>
+          <li>
+            imageListPositions: {this.state.imageListPositions.join(", ")}
+          </li>
+          <li>Loaded Images: {this.state.loadedImages}</li>
+          <li>done: {this.state.done ? "true" : "false"}</li>
+        </State>
       </div>
     );
   }
