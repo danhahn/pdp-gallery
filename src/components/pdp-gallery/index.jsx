@@ -63,7 +63,7 @@ export default class PdpGallery extends Component {
   render() {
     return (
       <div>
-        {this.state.screenWidth ? (
+        {/* {this.state.screenWidth ? ( */}
           <PdpGalleryWrapper>
             {!this.isMobile() ? (
               <PdpDesktop
@@ -117,7 +117,7 @@ export default class PdpGallery extends Component {
               />
             )}
           </PdpGalleryWrapper>
-        ) : null}
+        {/* ) : null} */}
       </div>
     );
   }
