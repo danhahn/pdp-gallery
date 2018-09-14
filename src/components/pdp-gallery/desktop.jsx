@@ -21,11 +21,21 @@ const Desktop = styled.div`
     position: fixed;
     content: "";
     display: block;
-    top: 150px;
+    top: 145px;
     left: 0;
     right: 0;
     height: 1px;
     background-color: rebeccapurple;
+  }
+  &::after {
+    position: fixed;
+    content: "";
+    display: block;
+    top: 100px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: yellowgreen;
   }
 `;
 
@@ -48,17 +58,6 @@ const Nav = styled.nav`
   }
 `;
 
-const Icon = styled.img`
-  max-width: 100%;
-  display: block;
-  &:not(.selected) {
-    opacity: 0.7;
-  }
-  &.selected {
-    outline: #000 dotted 1px;
-  }
-`;
-
 const UpButton = styled(CustomButtonPrev)`
   background-repeat: no-repeat;
   background-position: center;
@@ -77,11 +76,6 @@ const DownButton = styled(CustomButtonNext)`
   margin-top: 25px;
 `;
 
-const Photo = styled.img`
-  display: block;
-  margin-bottom: 10px;
-`;
-
 export default class PdpDesktop extends Component {
   static state = {
     photos: []
@@ -93,32 +87,47 @@ export default class PdpDesktop extends Component {
     imageListPositions: []
   };
   componentDidMount() {
-    this.setState({
-      totalItems: this.props.photos.length,
-      navBottom: Math.round(this.inner.getBoundingClientRect().height),
-      imageListPositions: Array.from(this.photos.querySelectorAll("img")).map(
-        photo => photo.offsetTop
-      )
-    });
+    this.updateDisplayState();
     window.addEventListener("scroll", this.checkOffSet);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.photos.length !== this.props.photos.length) {
+      this.updateDisplayState();
+    }
+  }
+
+  updateDisplayState = () => {
+    this.setState(
+      {
+        totalItems: this.props.photos.length,
+        imageListPositions: Array.from(this.photos.querySelectorAll("img")).map(
+          photo => photo.offsetTop
+        )
+      },
+      () => {
+        setTimeout(() => {
+          this.setState({
+            navBottom: Math.round(this.inner.getBoundingClientRect().height)
+          });
+        }, 100);
+      }
+    );
+  };
+
   scrollToImage = selected => {
     const { imageListPositions: pos } = this.state;
-    console.log(pos[selected]);
     window.scrollTo({
-      top: pos[selected] - 150,
+      top: pos[selected] - 145,
       behavior: "smooth"
     });
   };
 
   updateSelectedIcon = selected => {
-    // this.setState({ selected }, () => this.scrollToImage(selected));
     this.scrollToImage(selected);
   };
 
   checkOffSet = () => {
-    // console.log(this.nav.getBoundingClientRect().top);
     const {
       navBottom,
       imageListPositions,
@@ -138,7 +147,7 @@ export default class PdpDesktop extends Component {
     }
     const selected = imageListPositions
       .map(number => number + top)
-      .findIndex(number => number > -96);
+      .findIndex(number => number > -100);
     if (selected !== -1 && stateSelected !== selected) {
       this.setState({ selected });
     }
@@ -157,36 +166,25 @@ export default class PdpDesktop extends Component {
   };
 
   render() {
-    const { photos } = this.props;
+    const { totalItems } = this.state;
     const { selected } = this.state;
     return (
       <Desktop>
         <Nav innerRef={el => (this.nav = el)}>
-          <div className="inner" ref={el => (this.inner = el)}>
-            {photos.map((photo, index) => (
-              <Icon
-                src={photo.url}
-                className={selected === index ? "selected" : null}
-                onClick={() => this.updateSelectedIcon(index)}
-                alt=""
-                key={photo.id}
-              />
-            ))}
-            <UpButton onClick={this.decreaseSelectedItem} />
-            <DownButton onClick={this.increaseSelectedItem} />
+          <div
+            className="inner"
+            ref={el => (this.inner = el)}
+          >
+            {this.props.renderThumbnails(selected, this.updateSelectedIcon)}
+            {totalItems > 1 ? (
+              <UpButton onClick={this.decreaseSelectedItem} />
+            ) : null}
+            {totalItems > 1 ? (
+              <DownButton onClick={this.increaseSelectedItem} />
+            ) : null}
           </div>
         </Nav>
-        <section ref={el => (this.photos = el)}>
-          {photos.map((photo, index) => (
-            <Photo
-              src={photo.url}
-              className={selected === index ? "selected" : null}
-              onClick={() => this.updateSelectedIcon(index)}
-              alt=""
-              key={`${photo.id}-photo`}
-            />
-          ))}
-        </section>
+        <section ref={el => (this.photos = el)}>{this.props.render()}</section>
         <State>
           <li>selected: {this.state.selected}</li>
           <li>totalItems: {this.state.totalItems}</li>

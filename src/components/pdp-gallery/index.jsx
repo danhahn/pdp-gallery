@@ -22,6 +22,22 @@ const Thumbnail = styled(Img)`
     `};
 `;
 
+const Icon = styled.img`
+  max-width: 100%;
+  display: block;
+  &:not(.selected) {
+    opacity: 0.7;
+  }
+  &.selected {
+    outline: #000 dotted 1px;
+  }
+`;
+
+const Photo = styled.img`
+  display: block;
+  margin-bottom: 10px;
+`;
+
 export default class PdpGallery extends Component {
   state = {
     screenWidth: null
@@ -46,7 +62,30 @@ export default class PdpGallery extends Component {
     return (
       <PdpGalleryWrapper>
         {!this.isMobile() ? (
-          <PdpDesktop photos={this.props.photos} />
+          <PdpDesktop
+            photos={this.props.photos}
+            render={() =>
+              this.props.photos.map((photo, index) => (
+                <Photo
+                  src={photo.url}
+                  onClick={() => console.log(photo.url)}
+                  alt=""
+                  key={`${photo.id}-photo`}
+                />
+              ))
+            }
+            renderThumbnails={(selected, updateSelectedIcon) =>
+              this.props.photos.map((photo, index) => (
+                <Icon
+                  src={photo.url}
+                  className={selected === index ? "selected" : null}
+                  onClick={() => updateSelectedIcon(index)}
+                  alt=""
+                  key={photo.id}
+                />
+              ))
+            }
+          />
         ) : (
           <PdpMobile
             photos={this.props.photos}
