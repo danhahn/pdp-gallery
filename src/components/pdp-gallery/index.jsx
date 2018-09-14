@@ -4,8 +4,10 @@ import PdpMobile from "./mobile";
 import PdpDesktop from "./desktop";
 
 const PdpGalleryWrapper = styled.div`
-  margin-top: 500px;
-  margin-bottom: 5000px;
+  @media screen and (min-width: 510px){
+    margin-top: 500px;
+    margin-bottom: 5000px;
+  }
 `;
 
 const Img = styled.img`
