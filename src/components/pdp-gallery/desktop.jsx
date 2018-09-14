@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { CustomButtonPrev, CustomButtonNext } from "./components";
 
 const State = styled.ul`
@@ -17,6 +17,9 @@ const Desktop = styled.div`
   display: grid;
   grid-template-columns: 70px 550px;
   grid-gap: 50px;
+  opacity: 0;
+  height: 737px;
+  overflow: hidden;
   &::before {
     position: fixed;
     content: "";
@@ -37,6 +40,13 @@ const Desktop = styled.div`
     height: 1px;
     background-color: yellowgreen;
   }
+  ${props =>
+    props.active &&
+    css`
+      opacity: 1;
+      height: auto;
+      overflow: visible;
+    `};
 `;
 
 const Nav = styled.nav`
@@ -84,10 +94,13 @@ export default class PdpDesktop extends Component {
     selected: 0,
     totalItems: 0,
     navBottom: null,
-    imageListPositions: []
+    imageListPositions: [],
+    loadedImages: 0,
+    done: false
   };
   componentDidMount() {
-    this.updateDisplayState();
+    console.log(new Date());
+    this.checkIfImagesLoaded();
     window.addEventListener("scroll", this.checkOffSet);
   }
 
@@ -95,7 +108,28 @@ export default class PdpDesktop extends Component {
     if (prevProps.photos.length !== this.props.photos.length) {
       this.updateDisplayState();
     }
+    if (
+      this.state.loadedImages === this.photos.querySelectorAll("img").length &&
+      !this.state.done
+    ) {
+      console.log("💥");
+      console.log(new Date());
+      this.setState({ done: true });
+      this.updateDisplayState();
+    }
   }
+
+  checkIfImagesLoaded = () => {
+    const _this = this;
+    this.photos.querySelectorAll("img").forEach(img =>
+      img.addEventListener("load", function cb(event) {
+        _this.setState({
+          loadedImages: _this.state.loadedImages + 1
+        });
+        event.currentTarget.removeEventListener(event.type, cb);
+      })
+    );
+  };
 
   updateDisplayState = () => {
     this.setState(
@@ -167,33 +201,37 @@ export default class PdpDesktop extends Component {
 
   render() {
     const { totalItems } = this.state;
-    const { selected } = this.state;
+    const { selected, done } = this.state;
     return (
-      <Desktop>
-        <Nav innerRef={el => (this.nav = el)}>
-          <div
-            className="inner"
-            ref={el => (this.inner = el)}
-          >
-            {this.props.renderThumbnails(selected, this.updateSelectedIcon)}
-            {totalItems > 1 ? (
-              <UpButton onClick={this.decreaseSelectedItem} />
-            ) : null}
-            {totalItems > 1 ? (
-              <DownButton onClick={this.increaseSelectedItem} />
-            ) : null}
-          </div>
-        </Nav>
-        <section ref={el => (this.photos = el)}>{this.props.render()}</section>
-        <State>
-          <li>selected: {this.state.selected}</li>
-          <li>totalItems: {this.state.totalItems}</li>
-          <li>navBottom: {this.state.navBottom}</li>
-          <li>
-            imageListPositions: {this.state.imageListPositions.join(", ")}
-          </li>
-        </State>
-      </Desktop>
+      <div>
+        {!done ? "...Loading" : null}
+        <Desktop active={done}>
+          <Nav innerRef={el => (this.nav = el)}>
+            <div className="inner" ref={el => (this.inner = el)}>
+              {this.props.renderThumbnails(selected, this.updateSelectedIcon)}
+              {totalItems > 1 ? (
+                <UpButton onClick={this.decreaseSelectedItem} />
+              ) : null}
+              {totalItems > 1 ? (
+                <DownButton onClick={this.increaseSelectedItem} />
+              ) : null}
+            </div>
+          </Nav>
+          <section ref={el => (this.photos = el)}>
+            {this.props.render()}
+          </section>
+          <State>
+            <li>selected: {this.state.selected}</li>
+            <li>totalItems: {this.state.totalItems}</li>
+            <li>navBottom: {this.state.navBottom}</li>
+            <li>
+              imageListPositions: {this.state.imageListPositions.join(", ")}
+            </li>
+            <li>Loaded Images: {this.state.loadedImages}</li>
+            <li>done: {this.state.done ? "true" : "false"}</li>
+          </State>
+        </Desktop>
+      </div>
     );
   }
 }
