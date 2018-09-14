@@ -3,7 +3,8 @@ import Swiper from "react-id-swiper/lib/custom";
 import styled from "styled-components";
 
 const PdpGalleryWrapper = styled.div`
-  border: 1px solid black;
+  background-color: lightcyan;
+  min-height: 548px;
 `;
 
 class PdpMobile extends Component {
@@ -17,16 +18,27 @@ class PdpMobile extends Component {
     this.updateCurrentIndex = this.updateCurrentIndex.bind(this);
     this.updateCurrentSlide = this.updateCurrentSlide.bind(this);
     this.state = {
-      swiper: "1234",
+      swiper: null,
       activeIndex: 0,
+      photos: 0,
       thumbnailPositions: [],
       thumbnailWidth: 0
     };
   }
 
   componentDidMount() {
-    this.setState({ swiper: this.swiper });
-    this.swiper.el.addEventListener("touchend", this.updateCurrentIndex);
+    setTimeout(() => {
+      this.setState({ swiper: this.swiper, photos: this.props.photos.length },() => {
+        this.swiper.el.addEventListener("touchend", this.updateCurrentIndex);
+      });
+    }, 200);
+  }
+
+  componentDidUpdate(prevProp) {
+    if(prevProp.photos.length !== this.props.photos.length && this.thumbsSwiper && this.swiper) {
+      this.thumbsSwiper.update();
+      this.swiper.update();
+    }
   }
 
   updateCurrentIndex() {
@@ -60,7 +72,7 @@ class PdpMobile extends Component {
     const { activeIndex } = this.state;
     const params = {
       breakpoints: {
-        510: {
+        768: {
           slidesPerView: 1,
           slidesPerGroup: 1,
           spaceBetween: 15
@@ -69,7 +81,7 @@ class PdpMobile extends Component {
     };
     const thumbsParams = {
       breakpoints: {
-        510: {
+        768: {
           slidesPerView: 7,
           slidesPerGroup: 7,
           spaceBetween: 10
@@ -78,6 +90,7 @@ class PdpMobile extends Component {
     };
     return (
       <PdpGalleryWrapper>
+        {this.state.photos ? <div>
         <Swiper
           {...params}
           ref={node => {
@@ -99,7 +112,8 @@ class PdpMobile extends Component {
           >
             {renderThumbnails(this.updateCurrentSlide, activeIndex)}
           </Swiper>
-        </div>
+          </div></div>
+        : null }
       </PdpGalleryWrapper>
     );
   }
