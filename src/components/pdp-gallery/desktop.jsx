@@ -21,7 +21,7 @@ const Desktop = styled.div`
     position: fixed;
     content: "";
     display: block;
-    top: 145px;
+    top: 150px;
     left: 0;
     right: 0;
     height: 1px;
@@ -118,7 +118,7 @@ export default class PdpDesktop extends Component {
   scrollToImage = selected => {
     const { imageListPositions: pos } = this.state;
     window.scrollTo({
-      top: pos[selected] - 145,
+      top: pos[selected] - 150,
       behavior: "smooth"
     });
   };
@@ -147,7 +147,7 @@ export default class PdpDesktop extends Component {
     }
     const selected = imageListPositions
       .map(number => number + top)
-      .findIndex(number => number > -100);
+      .findIndex(number => number > 0);
     if (selected !== -1 && stateSelected !== selected) {
       this.setState({ selected });
     }
