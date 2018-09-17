@@ -137,11 +137,23 @@ export default class PdpDesktop extends Component {
         )
       },
       () => {
+        const videos = [...this.photos.querySelectorAll('video')];
+        if (videos.length >= 1) {
+          const height = this.state.imageListPositions
+              .slice(-2)
+              .reduce((acc, value) => value - acc, 0);
+          const [lastHeight] = this.state.imageListPositions.slice(-1);
+          const newOffSets = videos.map((video, i) => {
+            return lastHeight + (height * (i + 1))
+          });
+          this.setState({ imageListPositions: [...this.state.imageListPositions, ...newOffSets]})
+        }
+
         setTimeout(() => {
           this.setState({
             navBottom: Math.round(this.inner.getBoundingClientRect().height)
           });
-        }, 100);
+        }, 200);
       }
     );
   };

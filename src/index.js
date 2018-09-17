@@ -17,6 +17,7 @@ const photos = [
     id: 301
   },
   {
+    video: `<video width="1052" height="1474" preload="auto" style="position: absolute; width: 526.136px; height: 737px; left: 11.9319px; top: 0px;" loop="" poster="//michaelkors.scene7.com/is/image/MichaelKors/MF88Y469TW-2328_99_Flash9_Autox720p_2600k?fit=constrain,1&amp;wid=550&amp;hei=737" data-dtmflag-entered-viewport="true"><p>Your Browser does not support HTML5 Video tag or the video cannot be played.</p><source src="//michaelkors.scene7.com/is/content/MichaelKors/MF88Y469TW-2328_99_Flash9_Autox720p_2600k"></video>`,
     url: "https://picsum.photos/550/737?image=400",
     id: 400
   },

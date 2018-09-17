@@ -69,14 +69,18 @@ export default class PdpGallery extends Component {
               <PdpDesktop
                 photos={this.props.photos}
                 render={() =>
-                  this.props.photos.map((photo, index) => (
-                    <Photo
-                      src={photo.url}
-                      onClick={() => console.log(photo.url)}
-                      alt=""
-                      key={`${photo.id}-photo`}
-                    />
-                  ))
+                  this.props.photos.map((photo, index) => {
+                    if (photo.video) {
+                      return <div key={photo.id} dangerouslySetInnerHTML={{__html: photo.video}} style={{position: 'relative'}} />;
+                    } else {
+                      return (<Photo
+                        src={photo.url}
+                        onClick={() => console.log(photo.url)}
+                        alt=""
+                        key={`${photo.id}-photo`}
+                      />)
+                    }
+                  })
                 }
                 renderThumbnails={(selected, updateSelectedIcon) =>
                   this.props.photos.map((photo, index) => (
