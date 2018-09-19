@@ -83,7 +83,7 @@ export default class PdpGallery extends Component {
                   })
                 }
                 renderThumbnails={(selected, updateSelectedIcon) =>
-                  this.props.photos.map((photo, index) => (
+                  this.props.photos.map((photo, index) => {
                     <Icon
                       src={photo.url}
                       className={selected === index ? "selected" : null}
@@ -91,18 +91,22 @@ export default class PdpGallery extends Component {
                       alt=""
                       key={photo.id}
                     />
-                  ))
+                  })
                 }
               />
             ) : (
               <PdpMobile
                 photos={this.props.photos}
                 render={() =>
-                  this.props.photos.map(photo => (
-                    <div key={photo.id}>
-                      <Img src={photo.url} alt="" />
-                    </div>
-                  ))
+                  this.props.photos.map(photo => {
+                    if (photo.video) {
+                      return <div key={photo.id} dangerouslySetInnerHTML={{ __html: photo.video }} style={{ position: 'relative' }} />;
+                    } else {
+                      return (<div key={photo.id}>
+                        <Img src={photo.url} alt="" />
+                      </div>)
+                    }
+                  })
                 }
                 renderThumbnails={(updateCurrentSlide, activeIndex) =>
                   this.props.photos.map((photo, index) => (

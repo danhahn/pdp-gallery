@@ -51,6 +51,10 @@ const Desktop = styled.div`
 
 const Nav = styled.nav`
   width: 70px;
+  border: 1px solid blue;
+  .inner {
+    border: 1px solid red;
+  }
   &.fixed {
     .inner {
       width: 70px;
