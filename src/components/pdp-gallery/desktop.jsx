@@ -175,15 +175,15 @@ export default class PdpDesktop extends Component {
   scrollToImage = selected => {
     const isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
     const { imageListPositions: pos } = this.state;
-    const top = pos[selected] - 150
-    const scrollType = isIE11
-      ? `0 ${top}`
-      : {
-        top,
+    const top = pos[selected] - 150;
+    if(!isIE11) {
+      window.scrollTo({
+        top: pos[selected] - 150,
         behavior: "smooth"
-      }
-    ;
-    window.scrollTo(scrollType);
+      });
+    } else {
+      window.scrollTo(0, top);
+    }
   };
 
   updateSelectedIcon = selected => {
