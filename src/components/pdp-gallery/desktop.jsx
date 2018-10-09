@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
+import _ from 'lodash';
 import { CustomButtonPrev, CustomButtonNext } from "./components";
 
 const State = styled.ul`
@@ -201,9 +202,11 @@ export default class PdpDesktop extends Component {
     } else {
       nav.classList.remove("bottom");
     }
-    const selected = imageListPositions
+    const selectedMap = imageListPositions
       .map(number => number + top)
-      .findIndex(number => number > 0);
+
+    const selected = _.findIndex(selectedMap, number => number > 0);
+
     if (selected !== -1 && stateSelected !== selected) {
       this.setState({ selected });
     }
