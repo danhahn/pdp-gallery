@@ -28,8 +28,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <h1>One Big Test</h1> */}
-        raw
+        <PdpGallery photos={photos} />
       </div>
     );
   }
