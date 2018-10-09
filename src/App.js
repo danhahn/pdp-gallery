@@ -25,23 +25,10 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component {
-  state = {
-    photos: [],
-  };
-  componentDidMount = () => {
-    const photos = this.props.photos.slice(0, 4);
-    this.setState({ photos });
-  };
-  handleChange = event => {
-    const photos = this.props.photos.slice(0, event.target.value);
-    this.setState({ photos });
-  };
   render() {
-    const { photos } = this.state;
     return (
       <div>
-        {/* <h1>One Big Test</h1> */}
-        <PdpGallery photos={photos} />
+        <PdpGallery photos={this.props.photos} />
       </div>
     );
   }
