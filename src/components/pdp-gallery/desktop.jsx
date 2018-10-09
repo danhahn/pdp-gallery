@@ -173,6 +173,7 @@ export default class PdpDesktop extends Component {
   };
 
   scrollToImage = selected => {
+    console.log(selected, 'scroll click');
     const { imageListPositions: pos } = this.state;
     window.scrollTo({
       top: pos[selected] - 150,
