@@ -174,11 +174,8 @@ export default class PdpDesktop extends Component {
 
   scrollToImage = selected => {
     const { imageListPositions: pos } = this.state;
-    console.log(pos, selected, 'cleck');
-    window.scrollTo({
-      top: pos[selected] - 150,
-      behavior: "smooth"
-    });
+    console.log(pos[selected] - 150, selected, 'cleck');
+    window.scrollTo(0, pos[selected] - 150);
   };
 
   updateSelectedIcon = selected => {
