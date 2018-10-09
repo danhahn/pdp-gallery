@@ -206,6 +206,7 @@ export default class PdpDesktop extends Component {
       .map(number => number + top)
 
     const selected = _.findIndex(selectedMap, number => number > 0);
+    console.log(selected);
 
     if (selected !== -1 && stateSelected !== selected) {
       this.setState({ selected });
