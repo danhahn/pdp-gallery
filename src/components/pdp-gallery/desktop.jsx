@@ -14,6 +14,7 @@ const State = styled.ul`
 `;
 
 const Desktop = styled.div`
+  display: -ms-grid;
   display: grid;
   grid-template-columns: 70px 550px;
   grid-gap: 50px;
