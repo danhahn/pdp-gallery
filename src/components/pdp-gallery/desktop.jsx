@@ -14,10 +14,12 @@ const State = styled.ul`
 `;
 
 const Desktop = styled.div`
-  display: -ms-grid;
-  display: grid;
-  grid-template-columns: 70px 550px;
-  grid-gap: 50px;
+  @supports (display: grid) {
+    display: grid;
+    grid-template-columns: 70px 550px;
+    grid-gap: 50px;
+  }
+  display: flex;
   opacity: 0;
   height: 737px;
   overflow: hidden;
@@ -51,6 +53,10 @@ const Desktop = styled.div`
 `;
 
 const Nav = styled.nav`
+  margin-right: 50px;
+  @supports (display: grid) {
+    margin-right: 0;
+  }
   width: 70px;
   border: 1px solid blue;
   .inner {
