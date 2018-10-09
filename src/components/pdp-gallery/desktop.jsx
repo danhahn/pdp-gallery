@@ -122,7 +122,9 @@ export default class PdpDesktop extends Component {
 
   checkIfImagesLoaded = () => {
     const _this = this;
-    this.photos.querySelectorAll("img").forEach(img =>
+    const images = this.photos.querySelectorAll("img");
+    const nodeListImages = [].slice.call(images);
+    nodeListImages.forEach(img =>
       img.addEventListener("load", function cb(event) {
         _this.setState({
           loadedImages: _this.state.loadedImages + 1
