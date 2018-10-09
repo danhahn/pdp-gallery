@@ -25,7 +25,12 @@ const Wrapper = styled.div`
 `;
 
 class App extends Component {
+  state = {
+    photos: [],
+    options: Array.of(...".".repeat(10))
+  };
   render() {
+    const { photos } = this.state;
     return (
       <div>
         <PdpGallery photos={photos} />
