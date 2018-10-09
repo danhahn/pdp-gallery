@@ -136,7 +136,7 @@ export default class PdpDesktop extends Component {
     this.setState(
       {
         totalItems: this.props.photos.length,
-        imageListPositions: Array.from(this.photos.querySelectorAll("img")).map(
+        imageListPositions: [...this.photos.querySelectorAll("img")].map(
           photo => photo.offsetTop
         )
       },
